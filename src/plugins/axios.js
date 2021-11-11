@@ -4,9 +4,9 @@ import axios from "axios";
 // 请求拦截器
 axios.interceptors.request.use(config => {
 	config.baseURL = '/api/'; // 设置基准Url请求
-	config.headers = { // 携带token
-		"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImpqaiIsIl9pZCI6IjYxNzM2MWVkMmQ0OWFhMTFjNmQ3MjhlNCIsImlhdCI6MTYzNjAyNDkwNSwiZXhwIjoxNjM2MTExMzA1fQ.dye6zsP8EQ-YjzvUDOHctqS7rLdf-RhdnNrM-4qvf50",
-	};
+	/*config.headers = { // 携带token
+	 "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImpqaiIsIl9pZCI6IjYxNzM2MWVkMmQ0OWFhMTFjNmQ3MjhlNCIsImlhdCI6MTYzNjAyNDkwNSwiZXhwIjoxNjM2MTExMzA1fQ.dye6zsP8EQ-YjzvUDOHctqS7rLdf-RhdnNrM-4qvf50",
+	 };*/
 	
 	/* 可控制请求发出后显示loading…… */
 	

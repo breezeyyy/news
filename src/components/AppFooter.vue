@@ -1,22 +1,22 @@
 <template>
 	<van-tabbar
 		v-model="active"
-		route
+		placeholder
 		active-color="#5477b2"
 		inactive-color="#9e9a95"
 	>
 		<van-tabbar-item
 			icon="home-o"
-			to="/"
+			to="/home"
 		>首页
 		</van-tabbar-item>
 		<van-tabbar-item
-			class="write"
 			to="/write"
+			class="write"
 		></van-tabbar-item>
 		<van-tabbar-item
-			icon="friends-o"
 			to="/user"
+			icon="friends-o"
 		>我的
 		</van-tabbar-item>
 	</van-tabbar>
@@ -27,17 +27,27 @@
 		name: "AppFooter",
 		data () {
 			return {
-				active: 1,
+				active: null,
 			}
+		},
+		created () {
+			this.judgeActive();
+		},
+		updated () {
+			this.judgeActive();
+		},
+		beforeRouteUpdate () {
+			this.judgeActive();
+		},
+		methods: {
+			judgeActive () {
+				this.active = this.$router.currentRoute.fullPath === '/user' ? 2 : 0;
+			},
 		}
 	}
 </script>
 
 <style scoped lang="scss">
-	/*.appFooter {*/
-	/*	position: fixed;*/
-	/*	bottom: 0;*/
-	/*}*/
 	.write {
 		height: 100%;
 		
