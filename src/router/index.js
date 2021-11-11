@@ -1,15 +1,5 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import Home from '../views/Home.vue';
-import Follow from '../views/Follow.vue';
-import Column from '../views/Column.vue';
-import AppHeader from "@/components/AppHeader";
-import Details from "@/views/Details";
-import User from "@/views/User";
-import Login from "@/views/Login";
-import Reg from "@/views/Reg";
-import NoPage from "@/views/NoPage";
-
 
 Vue.use(VueRouter);
 
@@ -17,43 +7,42 @@ const routes = [
 	{
 		path: '/',
 		name: 'AppHeader',
-		component: AppHeader,
+		component: () => import(/* webpackChunkName: "AppHeader" */'@/components/AppHeader'),
 		children: [
 			{
 				path: 'home',
 				name: 'home',
-				component: Home
-				,
+				component: () => import(/* webpackChunkName: "Home" */'@/views/Home'),
 			}, {
 				path: 'follow',
 				name: 'follow',
-				component: Follow,
+				component: () => import(/* webpackChunkName: "Follow" */'@/views/Follow'),
 			}, {
 				path: 'column',
 				name: 'column',
-				component: Column,
+				component: () => import(/* webpackChunkName: "Column" */'@/views/Column'),
 			},
 		]
 	}, {
 		path: '/details/:_id',
 		name: 'details',
-		component: Details,
+		component: () => import(/* webpackChunkName: "Details" */'@/views/Details'),
 	}, {
 		path: '/user',
 		name: 'user',
-		component: User,
+		component: () => import(/* webpackChunkName: "User" */'@/views/User'),
 	}, {
 		path: '/login',
 		name: 'login',
-		component: Login,
+		component: () => import(/* webpackChunkName: "Login" */'@/views/Login'),
 	}, {
 		path: '/reg',
 		name: 'reg',
-		component: Reg,
+		component: () => import(/* webpackChunkName: "Reg" */'@/views/Reg'),
 	}, {
 		path: '*',
 		name: 'noPage',
-		component: NoPage,
+		component: () => import(/* webpackChunkName: "NoPage" */'@/views/NoPage'),
 	}
 ];
 
