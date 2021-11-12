@@ -1,14 +1,14 @@
 <template>
-	<div class="content">
+	<div class="content" v-if="getUser.icon">
 		<div class="header">
 			<van-image
 				round
 				width="0.7rem"
 				height="0.7rem"
-				:src="$serverUrl+user.icon"
+				:src="$serverUrl+getUser.icon"
 			/>
 			<div class="user">
-				<p>{{ user.nikename }}</p>
+				<p>{{ getUser.nikename }}</p>
 				<a
 					href="javascript:"
 					class="logout"
@@ -17,11 +17,11 @@
 			</div>
 			<ul class="clearfix">
 				<li>
-					<span>{{ user.follow }}</span>
+					<span>{{ getUser.follow }}</span>
 					<p>关注</p>
 				</li>
 				<li>
-					<span>{{ user.fans }}</span>
+					<span>{{ getUser.fans }}</span>
 					<p class="end">粉丝</p>
 				</li>
 			</ul>
@@ -31,28 +31,28 @@
 			is-link
 			title="公开博文"
 			icon="location-o"
-			:value="user.pubArt"
+			:value="getUser.pubArt"
 		/>
 		<van-cell
 			center
 			is-link
 			title="秘密博文"
 			icon="location-o"
-			:value="user.priArt"
+			:value="getUser.priArt"
 		/>
 		<van-cell
 			center
 			is-link
 			title="草稿箱"
 			icon="location-o"
-			:value="user.draArt"
+			:value="getUser.draArt"
 		/>
 		<van-cell
 			center
 			is-link
 			title="收藏夹"
 			icon="location-o"
-			:value="user.favorite"
+			:value="getUser.favorite"
 		/>
 		<van-cell
 			center
@@ -63,33 +63,26 @@
 </template>
 
 <script>
+	import {mapActions, mapState} from "vuex";
 	import Cookie from "js-cookie";
 	
 	export default {
 		name: "user",
-		data () {
-			return {
-				user: {
-					icon: "images/loading.gif",
-				},
-			};
-		},
 		beforeMount () {
-			const token = Cookie.get('token');
-			token || this.$router.replace('/login');
-			this.$axios.get('/user', {
-				headers: {
-					token,
-				},
-			}).then(res => this.user = res.data)
-			.catch(err => console.log(err));
+			this.user(this.$router);
 		},
 		methods: {
+			...mapActions('user', ['user']),
 			loginOut () {
 				Cookie.remove('token');
 				this.$router.replace('/login');
 			},
 		},
+		computed: {
+			...mapState('user', {
+				getUser: state => state.user,
+			})
+		}
 	}
 </script>
 

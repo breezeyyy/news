@@ -7,7 +7,7 @@
 			fixed
 			placeholder
 			safe-area-inset-top
-			@click-left="onClickLeft"
+			@click-left="$router.go(-1)"
 		/>
 		<van-skeleton
 			title
@@ -15,20 +15,20 @@
 			:row="16"
 			title-width="50%"
 			avatar-size="50px"
-			:loading="loading"
+			:loading="loadingFlag"
 		>
-			<div class="content" v-if="articleDetails.detail">
+			<div class="content" v-if="getArticleDetails.detail">
 				<div class="header clear">
-					<h2><img :src="articleDetails.detail.auth_icon"/></h2>
-					<p>{{ articleDetails.detail.auth }}</p></div>
+					<h2><img :src="getArticleDetails.detail.auth_icon"/></h2>
+					<p>{{ getArticleDetails.detail.auth }}</p></div>
 				<div class="cont">
-					<h3>{{ articleDetails.title }}</h3>
+					<h3>{{ getArticleDetails.title }}</h3>
 					<div class="time">
 						<p>{{ calcTime }}
 							<span><img src="../assets/images/zan.png" alt=""/></span>
 						</p>
 					</div>
-					<div class="text-box">{{ articleDetails.detail.content }}</div>
+					<div class="text-box">{{ getArticleDetails.detail.content }}</div>
 				</div>
 			</div>
 			<van-tabbar
@@ -59,31 +59,35 @@
 </template>
 
 <script>
-	import formatTime from "../utils/formatTime";
+	import {mapActions, mapGetters, mapState} from "vuex";
 	
 	export default {
 		name: "Details",
-		data () {
-			return {
-				articleDetails: {},
-				loading: true,
-			};
-		},
 		created () {
-			this.$axios.get(`/news/${this.$route.query.from}/${this.$route.params._id}`)
-			.then(res => {
-				this.articleDetails = res.data;
-				this.loading = false;
-			})
+			this.articleDetails({
+				from: this.$route.query.from,
+				_id: this.$route.params._id,
+			});
 		},
 		methods: {
-			onClickLeft () {
-				this.$router.go(-1);
-			},
+			...mapActions('details', ['articleDetails']),
 		},
 		computed: {
-			calcTime () { return formatTime(this.articleDetails.time)}
-		}
+			...mapGetters('details', ['calcTime']),
+			...mapState('details', {
+				getArticleDetails: state => state.articleDetails,
+			}),
+			loadingFlag: {
+				get () {
+					return this.$store.state.details.loading
+				},
+				set (loading) {
+					this.setLoading({
+						loading
+					})
+				}
+			},
+		},
 	}
 </script>
 

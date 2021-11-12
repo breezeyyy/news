@@ -1,6 +1,6 @@
 <template>
 	<van-tabbar
-		v-model="active"
+		v-model="getActive"
 		placeholder
 		active-color="#5477b2"
 		inactive-color="#9e9a95"
@@ -23,27 +23,34 @@
 </template>
 
 <script>
+	import {mapActions, mapMutations} from "vuex";
+	
 	export default {
 		name: "AppFooter",
-		data () {
-			return {
-				active: null,
-			}
-		},
 		created () {
-			this.judgeActive();
-		},
-		updated () {
-			this.judgeActive();
-		},
-		beforeRouteUpdate () {
-			this.judgeActive();
+			this.judgeActive(this.$router);
 		},
 		methods: {
-			judgeActive () {
-				this.active = this.$router.currentRoute.fullPath === '/user' ? 2 : 0;
+			...mapActions('footer', ['judgeActive']),
+			...mapMutations('footer', ['setActive']),
+		},
+		watch: {
+			$route () {
+				this.judgeActive(this.$router);
+			}
+		},
+		computed: {
+			getActive: {
+				get () {
+					return this.$store.state.footer.active;
+				},
+				set (active) {
+					this.setActive({
+						active,
+					});
+				},
 			},
-		}
+		},
 	}
 </script>
 

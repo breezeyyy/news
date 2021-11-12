@@ -14,12 +14,14 @@ import "./plugins/axios";
 // vant组件
 import "./plugins/vant";
 //引入服务器地址
-import {url} from './server.js';
+import {url} from './server';
 
 Vue.prototype.$serverUrl = url;
-
+// 引入状态管理
+import store from './store'
 
 new Vue({
 	router,
-	render: (h) => h(App),
+	store,
+	render: (h) => h(App)
 }).$mount("#app");

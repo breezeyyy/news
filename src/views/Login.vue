@@ -40,7 +40,6 @@
 </template>
 
 <script>
-	// import Cookie from "@/utils/Cookie";
 	import Cookie from "js-cookie";
 	import {Toast} from "vant";
 	
@@ -73,7 +72,8 @@
 				}).catch(err => console.log(err));
 			},
 			onClickLeft () {
-				this.$router.go(-1);
+				const path = Cookie.get('prevPath');
+				this.$router.replace(path === '/user' ? '/home' : path);
 				Cookie.remove('prevPath');
 			},
 			goPrev () {

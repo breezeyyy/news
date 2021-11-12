@@ -1,20 +1,20 @@
 <template>
 	<div>
 		<van-pull-refresh
-			v-model="refreshing"
+			v-model="refreshingFlag"
 			@refresh="onRefresh"
 			success-text="刷新成功"
 		>
 			<van-list
-				v-model="loading"
-				:finished="finished"
-				:error.sync="error"
+				v-model="loadingFlag"
+				:finished="getFinished"
+				:error.sync="getError"
 				error-text="请求失败，点击重新加载"
 				finished-text="没有更多了"
 				@load="onLoad"
 			>
 				<van-cell
-					v-for="(item, index) in articles"
+					v-for="(item, index) in getArticles"
 					:key="item._id"
 					:to="`/details/${item._id}?from=follow`"
 				>
@@ -27,48 +27,52 @@
 </template>
 
 <script>
+	import {mapActions, mapMutations, mapState} from "vuex";
+	import {throttle} from "lodash/function";
+	
 	export default {
 		name: "Follow",
-		data () {
-			return {
-				banners: [],
-				articles: [],
-				loading: false,
-				finished: false,
-				error: false,
-				refreshing: false,
-			};
-		},
 		methods: {
-			onLoad () {
-				this.loading = true;
-				if (this.refreshing) {
-					this.articles = [];
-					this.refreshing = false;
+			...mapActions('follow', ['articles', 'refresh']),
+			...mapMutations('follow', ['setRefreshing', 'setLoading']),
+			// 将onLoad节流
+			onLoad: throttle(function () {
+				// 向服务器请求数据
+				this.articles();
+			}, 500),
+			onRefresh: throttle(function () {
+				// 向服务器请求数据
+				this.refresh();
+			}, 500),
+		},
+		computed: {
+			// 双向绑定状态
+			refreshingFlag: {
+				get () {
+					return this.$store.state.follow.refreshing
+				},
+				set (refreshing) {
+					this.setRefreshing({
+						refreshing
+					})
 				}
-				this.$axios.get('/news/follow', {
-					params: {
-						_page: Number(this.articles.length / 30),
-						_limit: 30,
-					},
-				}).then(res => {
-					if (!res.err) {
-						// Toast('刷新成功');
-						this.loading = false;
-						this.articles = [...this.articles, ...res.data];
-					}
-					this.finished = res.data.length < 30;
-				}).catch(() => this.error = true);
 			},
-			onRefresh () {
-				// 清空列表数据
-				this.finished = false;
-				
-				// 重新加载数据
-				// 将 loading 设置为 true，表示处于加载状态
-				this.loading = true;
-				this.onLoad();
+			loadingFlag: {
+				get () {
+					return this.$store.state.follow.loading
+				},
+				set (loading) {
+					this.setLoading({
+						loading
+					})
+				}
 			},
+			// 仅获取
+			...mapState('follow', {
+				getFinished: state => state.finished,
+				getError: state => state.error,
+				getArticles: state => state.articles,
+			})
 		},
 	}
 </script>

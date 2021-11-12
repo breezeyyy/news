@@ -1,10 +1,10 @@
 <template>
 	<div class="appHeader">
 		<van-tabs
-			v-model="active"
+			v-model="getActive"
 			sticky
 			swipeable
-			:animated="animateVal"
+			:animated="getAnimateVal"
 			color="#5477b2"
 			title-active-color="#5477b2"
 			title-inactive-color="#9e9a95"
@@ -25,24 +25,41 @@
 </template>
 
 <script>
+	import {mapActions, mapGetters, mapMutations, mapState} from 'vuex';
+	
 	export default {
 		name: "AppHeader",
-		data () {
-			return {
-				active: null,
-				pages: ['/home', '/follow', '/column',],
-				animateVal: false,
-			}
+		methods: {
+			...mapActions('header', ['createActive']),
+			...mapMutations('header', ['setActive', 'setAnimateVal']),
+			...mapGetters('header', ['nextPath']),
 		},
 		created () {
-			this.active = this.pages.indexOf(this.$router.currentRoute.fullPath);
+			this.createActive(this.$router.currentRoute.fullPath);
 		},
 		watch: {
-			active (newVal, oldVal) {
-				oldVal === null || this.$router.push(this.pages[this.active]);
-				this.animateVal = true;
+			getActive (newVal, oldVal) {
+				oldVal === null || this.$router.push(this.nextPath());
+				this.getAnimateVal || this.setAnimateVal({
+					animateVal: true,
+				});
 			}
-		}
+		},
+		computed: {
+			...mapState('header', {
+				getAnimateVal: state => state.animateVal,
+			}),
+			getActive: {
+				get () {
+					return this.$store.state.header.active
+				},
+				set (active) {
+					this.setActive({
+						active
+					})
+				},
+			},
+		},
 	}
 </script>
 
