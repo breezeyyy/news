@@ -17,9 +17,7 @@ module.exports = {
 			less: {
 				modifyVars: {
 					// 直接覆盖变量
-					'tabs-line-height': '0.44rem',
 					'tab-font-size': '17px',
-					'nav-bar-text-color': '#5477B2',
 				},
 			},
 		},

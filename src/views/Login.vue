@@ -31,6 +31,7 @@
 					block
 					type="info"
 					native-type="submit"
+					color="#EE0A24"
 				>登录
 				</van-button>
 			</div>
@@ -52,7 +53,9 @@
 			};
 		},
 		beforeRouteEnter (to, from, next) {
-			from.path === '/' || from.path === '/reg' || Cookie.set('prevPath', from.path);
+			const query = Object.keys(from.query).length ? Object.keys(from.query).reduce((query, key) => `${query}${key}=${from.query[key]}&`, '?').replace(/&$/, '') : '';
+			// console.log(`${from.path}${query}`)
+			from.path === '/' || from.path === '/reg' || from.path === '/login' || Cookie.set('prevPath', `${from.path}${query}`);
 			next();
 		},
 		methods: {
@@ -87,6 +90,7 @@
 
 <style scoped lang="scss">
 	h1 {
+		color: #EE0A24;
 		margin-top: 0.3rem;
 		text-align: center;
 	}

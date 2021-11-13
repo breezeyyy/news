@@ -2,21 +2,25 @@
 	<van-tabbar
 		v-model="getActive"
 		placeholder
-		active-color="#5477b2"
+		active-color="#EE0A24"
 		inactive-color="#9e9a95"
 	>
 		<van-tabbar-item
-			icon="home-o"
+			icon="wap-home"
 			to="/home"
 		>首页
 		</van-tabbar-item>
 		<van-tabbar-item
-			to="/write"
-			class="write"
-		></van-tabbar-item>
+			icon="fire"
+		>热门
+		</van-tabbar-item>
+		<van-tabbar-item
+			icon="friends"
+		>动态
+		</van-tabbar-item>
 		<van-tabbar-item
 			to="/user"
-			icon="friends-o"
+			icon="manager"
 		>我的
 		</van-tabbar-item>
 	</van-tabbar>
@@ -55,15 +59,4 @@
 </script>
 
 <style scoped lang="scss">
-	.write {
-		height: 100%;
-		
-		background: {
-			image: url("../assets/images/write.png");
-			repeat: no-repeat;
-			position: 50% 0;
-			size: contain;
-		}
-		
-	}
 </style>

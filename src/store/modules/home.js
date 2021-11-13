@@ -2,6 +2,7 @@ import axios from "@/plugins/axios";
 
 const state = {
 	banners: [],
+	current: 0,
 	articles: [],
 	loading: false,
 	finished: false,
@@ -62,6 +63,7 @@ const actions = {
 
 const mutations = {
 	setBanners: (state, payload) => state.banners = payload.banners,
+	setCurrent: (state, payload) => state.current = payload.current,
 	setArticles: (state, payload) => state.articles = payload.articles,
 	setLoading: (state, payload) => state.loading = payload.loading,
 	setFinished: (state, payload) => state.finished = payload.finished,

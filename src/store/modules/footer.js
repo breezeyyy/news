@@ -1,13 +1,15 @@
 const state = {
 	active: null,
+	headerBar: ['/home', '/follow', '/column'],
+	navBar: ['/home', '/fire', '/friend', '/user'],
 };
 
 const getters = {};
 
 const actions = {
-	judgeActive ({commit}, router) {
+	judgeActive ({state, commit}, router) {
 		commit('setActive', {
-			active: router.currentRoute.fullPath === '/user' ? 2 : 0,
+			active: state.headerBar.includes(router.currentRoute.fullPath) ? 0 : state.navBar.indexOf(router.currentRoute.fullPath),
 		});
 	},
 };

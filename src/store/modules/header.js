@@ -1,4 +1,5 @@
 const state = {
+	searchInput: '',
 	active: null,
 	pages: ['/home', '/follow', '/column',],
 	animateVal: false,
@@ -18,6 +19,7 @@ const actions = {
 
 const mutations = {
 	setActive: (state, payload) => state.active = payload.active,
+	setSearchInput: (state, payload) => state.searchInput = payload.searchInput,
 	setAnimateVal: (state, payload) => state.animateVal = payload.animateVal,
 };
 

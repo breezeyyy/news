@@ -17,6 +17,12 @@ import {
 	Image as VanImage,
 	Uploader,
 	Loading,
+	Search,
+	Icon,
+	ShareSheet,
+	Divider,
+	Grid,
+	GridItem,
 } from 'vant';
 import Vue from "vue";
 
@@ -48,3 +54,9 @@ Vue.use(VanImage);
 // 文件上传
 Vue.use(Uploader);
 Vue.use(Loading);
+Vue.use(Search);
+Vue.use(Icon);
+Vue.use(ShareSheet);
+Vue.use(Divider);
+Vue.use(Grid);
+Vue.use(GridItem);

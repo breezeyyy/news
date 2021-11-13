@@ -26,38 +26,79 @@
 				</li>
 			</ul>
 		</div>
+		<van-grid
+			clickable
+			:border="false"
+		>
+			<van-grid-item
+				icon="star"
+				text="收藏"
+				style="color: #FF6034"
+			/>
+			<van-grid-item
+				icon="underway"
+				text="历史"
+				style="color: #7FC83C"
+			/>
+			<van-grid-item
+				icon="chat"
+				text="评论"
+				style="color: #599CDB"
+			/>
+			<van-grid-item
+				icon="comment"
+				text="消息"
+				style="color: #F3AF3E"
+			/>
+		</van-grid>
 		<van-cell
 			center
 			is-link
 			title="公开博文"
-			icon="location-o"
+			icon="orders-o"
 			:value="getUser.pubArt"
+			style="margin-top: .1rem"
 		/>
 		<van-cell
 			center
 			is-link
 			title="秘密博文"
-			icon="location-o"
+			icon="closed-eye"
 			:value="getUser.priArt"
 		/>
 		<van-cell
 			center
 			is-link
 			title="草稿箱"
-			icon="location-o"
+			icon="records"
 			:value="getUser.draArt"
 		/>
 		<van-cell
 			center
 			is-link
 			title="收藏夹"
-			icon="location-o"
+			icon="pending-payment"
 			:value="getUser.favorite"
 		/>
 		<van-cell
 			center
-			title="设置"
-			icon="location-o"
+			is-link
+			title="发现"
+			icon="eye-o"
+			style="margin-top: .1rem"
+		/>
+		<van-cell
+			center
+			is-link
+			title="我的礼包"
+			icon="point-gift-o"
+		/>
+		<van-cell
+			center
+			is-link
+			title="更多设置"
+			icon="setting-o"
+			style="margin-top: .1rem"
 		/>
 	</div>
 </template>
@@ -87,19 +128,15 @@
 </script>
 
 <style scoped lang="scss">
-	body {
-		background: #F2F4F5;
-	}
-	
 	.content {
 		height: 6.2rem;
 		width: 100%;
+		background: #F8F8F8;
 		
 		.header {
 			position: relative;
 			height: 30%;
-			margin-bottom: 0.2rem;
-			background-color: #9E9A95;
+			background: linear-gradient(to top, #FF6034, #EE0A24);
 			overflow: hidden;
 			
 			.van-image {
@@ -149,8 +186,8 @@
 			}
 		}
 		
-		.van-cell:last-child {
-			margin-top: .2rem;
+		.van-cell {
+			background-color: #FFF;
 		}
 	}
 </style>

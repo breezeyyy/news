@@ -17,10 +17,14 @@
 					v-for="item in getArticles"
 					:key="item._id"
 					:to="`/details/${item._id}?from=column`"
-				>
-					<h2>{{ item.title }}</h2>
-					<p>{{ item.des }}</p>
-				</van-cell>
+					:title="item.title"
+					:label="item.des"
+					is-link
+					center
+					size="large"
+					:icon="item.detail.auth_icon"
+					style="padding: 0.2rem 0.1rem 0.2rem 0.2rem"
+				/>
 			</van-list>
 		</van-pull-refresh>
 	</div>

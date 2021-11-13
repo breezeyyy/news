@@ -31,7 +31,7 @@
 				label="昵称"
 				placeholder="昵称 (可选)"
 			/>
-			<van-field name="uploader" label="选择头像(可选)">
+			<van-field name="uploader" label="选择头像">
 				<template #input>
 					<van-uploader v-model="fileList" multiple :max-count="1"/>
 				</template>
@@ -42,6 +42,7 @@
 					block
 					type="info"
 					native-type="submit"
+					color="#EE0A24"
 				>注册并登录
 				</van-button>
 			</div>
@@ -66,7 +67,8 @@
 			};
 		},
 		beforeRouteEnter (to, from, next) {
-			from.path === '/' || from.path === '/login' || to.path === from.path || Cookie.set('prevPath', from.path);
+			const query = Object.keys(from.query).length ? Object.keys(from.query).reduce((query, key) => `${query}${key}=${from.query[key]}&`, '?').replace(/&$/, '') : '';
+			from.path === '/' || from.path === '/reg' || from.path === '/login' || Cookie.set('prevPath', `${from.path}${query}`);
 			next();
 		},
 		methods: {
@@ -105,6 +107,7 @@
 
 <style scoped lang="scss">
 	h1 {
+		color: #EE0A24;
 		margin-top: 0.3rem;
 		text-align: center;
 	}

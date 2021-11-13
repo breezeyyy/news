@@ -1,12 +1,32 @@
 <template>
 	<div class="appHeader">
+		<van-search
+			v-model="getSearchInput"
+			shape="round"
+			show-action
+			background="#EE0A24"
+			placeholder="请输入搜索关键词"
+		>
+			<template #action>
+				<div class="addArt">
+					<van-icon
+						name="add"
+						color="#FFF"
+						size="22px"
+						:style="{
+							'display': 'block',
+						}"
+					/>
+					发布
+				</div>
+			</template>
+		</van-search>
 		<van-tabs
 			v-model="getActive"
 			sticky
 			swipeable
 			:animated="getAnimateVal"
-			color="#5477b2"
-			title-active-color="#5477b2"
+			title-active-color="#EE0A24"
 			title-inactive-color="#9e9a95"
 			line-width="70px"
 			line-height="4px"
@@ -31,7 +51,7 @@
 		name: "AppHeader",
 		methods: {
 			...mapActions('header', ['createActive']),
-			...mapMutations('header', ['setActive', 'setAnimateVal']),
+			...mapMutations('header', ['setActive', 'setAnimateVal', 'setSearchInput']),
 			...mapGetters('header', ['nextPath']),
 		},
 		created () {
@@ -59,9 +79,30 @@
 					})
 				},
 			},
+			getSearchInput: {
+				get () {
+					return this.$store.state.header.searchInput
+				},
+				set (searchInput) {
+					this.setSearchInput({
+						searchInput
+					})
+				},
+			},
 		},
 	}
 </script>
 
 <style scoped lang="scss">
+	.addArt {
+		color: #FFFFFF;
+		font-size: 12px;
+		text-align: center;
+		line-height: 20px;
+	}
+	
+	.van-cell__title {
+		flex-grow: 7 !important;
+	}
+
 </style>
