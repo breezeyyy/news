@@ -61,6 +61,12 @@
 		mounted () {
 			this.banners();
 		},
+		beforeRouteLeave (to, from, next) {
+			this.setCurrent({
+				current: 0
+			});
+			next();
+		},
 		methods: {
 			...mapActions('home', ['banners', 'articles', 'refresh']),
 			...mapMutations('home', ['setRefreshing', 'setLoading', 'setCurrent']),

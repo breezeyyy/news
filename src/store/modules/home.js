@@ -33,6 +33,8 @@ const actions = {
 			params: {
 				_limit: _limit ?? 30,
 				_page: _page ?? Number(state.articles.length / (_limit ?? 30)),
+				q: '已审核',
+				qSearch: 'audit',
 			}
 		}).then(res => {
 			if (!res.err) {
@@ -56,6 +58,9 @@ const actions = {
 	refresh ({dispatch, commit}) {
 		state.finished && commit('setFinished', {
 			finished: false,
+		});
+		commit('setLoading', {
+			loading: true,
 		});
 		dispatch('articles');
 	},

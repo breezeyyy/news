@@ -43,6 +43,9 @@ const actions = {
 		state.finished && commit('setFinished', {
 			finished: false,
 		});
+		commit('setLoading', {
+			loading: true,
+		});
 		dispatch('articles');
 	},
 };

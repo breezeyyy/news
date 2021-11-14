@@ -31,9 +31,11 @@
 			line-width="70px"
 			line-height="4px"
 		>
-			<van-tab title="首页">
-				<router-view></router-view>
-			</van-tab>
+			<keep-alive>
+				<van-tab title="首页">
+					<router-view></router-view>
+				</van-tab>
+			</keep-alive>
 			<van-tab title="关注">
 				<router-view></router-view>
 			</van-tab>
